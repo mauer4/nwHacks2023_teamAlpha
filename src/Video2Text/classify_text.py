@@ -1,5 +1,7 @@
 from google.cloud import language_v1
-from Audio2Text import *
+from Video2Text import *
+
+import sys
 import itertools
 
 speech_txt = ""
@@ -61,6 +63,7 @@ def analyze_text(filename):
     speech = readFile(filename)
     # TODO Iterate over speech
     # Every > 20 words sentences call accum text
+    # and call to update GUI every time 
 
 def accum_text(text):
     speech_txt += " " + text
@@ -79,4 +82,10 @@ if __name__ == '__main__':
     main()
 
 def main():
-    return 0
+    args = sys.argv[1:]
+
+    # scrape video file name from cmd and convert to text
+    speech_text_file = vid2text(args[0])
+
+    # Analyze speech text file - return sliced dict (size == 5)
+    dict = analyze_text(speech_text_file)
