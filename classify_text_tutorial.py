@@ -35,3 +35,6 @@ def classify(text, verbose=True):
             print("{:<16}: {}".format("confidence", category.confidence))
 
     return result
+
+
+print(classify("Ladies and gentlemen, today we are gathered here to talk about the state of our world and the challenges that we face. One of the most pressing issues of our time is climate change. The science is clear: the earth's temperature is rising at an alarming rate and we must take immediate action to reduce our greenhouse gas emissions and transition to renewable energy sources."))
