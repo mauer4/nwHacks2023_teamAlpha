@@ -38,18 +38,20 @@ class GUI:
     def updateGUI(self, d):
         x1 = 50 + self.counter * 200
         y1 = 70
-        x2 = 250 + self.counter * 200
+        x2 = 200 + self.counter * 200
         set = list(d.keys())  # keyset = topics
 
         for i in range(0, len(set)):
             distance = i * 50
             if set[i] in self.history.keys():
-                print("3")
                 self.canvas.delete(self.history[set[i]][5])
                 #self.canvas.coords(self.history[set[i]][4], self.history[set[i]][0], self.history[set[i]][1], self.history[set[i]][2] + 200
                 #, self.history[set[i]][3])
-                l2 = self.canvas.create_line(self.history[set[i]][0], self.history[set[i]][1], self.history[set[i]][2] + 200, self.history[set[i]][3], arrow=LAST)
-                self.history[set[i]] = (self.history[set[i]][0], self.history[set[i]][1], self.history[set[i]][2] + 200, self.history[set[i]][3], set[i], l2)
+                l2 = self.canvas.create_line(self.history[set[i]][0], self.history[set[i]][1], self.history[set[i]][2], self.history[set[i]][3])
+                self.canvas.create_line(self.history[set[i]][2], self.history[set[i]][3], x1, y1 + distance + 10)
+                l4 = self.canvas.create_line(x1, y1 + distance + 10, x2, y1 + distance + 10, arrow=LAST)
+                self.history[set[i]] = (x1, y1 + distance + 10,  x2, y1 + distance + 10, set[i], l4)
+                self.canvas.create_text(x1 + 50, y1 + distance, text=set[i])
                 #l2 = myLine(x1 + self.counter * 200, y1 + distance + 10, x2 + self.counter * 200, y1 + distance + 10,
                 #           set[i], a.line)
 

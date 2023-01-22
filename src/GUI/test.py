@@ -7,8 +7,8 @@ root = Tk()
 gui = GUI(root)
 
 a = {"test4": 3, "test3": 0.3, "test2": 0.01}
-b = {"a": 3, "b": 0.3, "c": 0.01, "d": 0.01}
-c = {"aa": 3, "ba": 0.3, "ca": 0.01}
+b = {"te": 1, "test4": 0.3, "c": 0.01, "d": 0.01}
+c = {"aa": 3, "test4": 0.3, "ca": 0.01}
 list = [c,b,a]
 
 def thread():
