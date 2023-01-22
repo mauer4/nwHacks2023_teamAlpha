@@ -49,11 +49,11 @@ def combineWeights(main_topics: dict, section_topics: dict):
         if topic in section_topics.keys():
             main_topics[topic] = main_topics[topic]*0.5 + section_topics[topic]*0.5
         else:
-            main_topics[topic] = main_topics[topic]*0.5
+            main_topics[topic] = main_topics[topic]*0.7
 
     for topic in section_topics.keys():
-        if topic not in main_topics:
-            main_topics[topic] = section_topics[topic]*0.5
+        if topic not in main_topics.keys():
+            main_topics[topic] = section_topics[topic]*0.7
 
     # sorts dict based on values
     main_topics = {k: v for k, v in sorted(main_topics.items(), key=lambda item: item[1], reverse=True)}
@@ -63,9 +63,10 @@ def combineWeights(main_topics: dict, section_topics: dict):
 def analyze_text(filename):
     speech = readFile(filename)
     segments = divide_speech(speech)
-    print(len(segments))
+
     for segment in segments:
         topic_dict = accum_text(segment)
+    return topic_dict
         # Call GUI
 
 def accum_text(text):
@@ -79,7 +80,7 @@ def accum_text(text):
     d2 = classify(speech_txt, False)
     #print("\nd2:", d2, "\n")
     x = combineWeights(d1, d2)
-    #print("x:", x)
+    print("x:", x)
     return x
 
 def readFile(file_path: str) -> str:
