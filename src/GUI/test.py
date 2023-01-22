@@ -15,7 +15,6 @@ def thread():
     for i in list:
         gui.updateGUI(i)
         root.update
-        print("t")
         time.sleep(3)
 t = Thread(target=thread)
 t.start()

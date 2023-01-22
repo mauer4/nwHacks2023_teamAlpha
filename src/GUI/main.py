@@ -18,7 +18,7 @@ class GUI:
         # https://stackoverflow.com/questions/7727804/tkinter-using-scrollbars-on-a-canvas
         self.frame = Frame(test.root, width=5000, height=2500)
         self.frame.pack(expand=True, fill=BOTH)
-        self.canvas = Canvas(self.frame, bg='#FFFFFF', width=5000, height=2500, scrollregion=(0, 0, 5000, 2500))
+        self.canvas = Canvas(self.frame, bg='#00FFFF', width=5000, height=2500, scrollregion=(0, 0, 5000, 2500))
         hbar = Scrollbar(self.frame, orient=HORIZONTAL)
         hbar.pack(side=BOTTOM, fill=X)
         hbar.config(command=self.canvas.xview)
@@ -28,16 +28,20 @@ class GUI:
         self.canvas.config(width=1000, height=500)
         self.canvas.config(xscrollcommand=hbar.set, yscrollcommand=vbar.set)
         self.canvas.pack(side=LEFT, expand=True, fill=BOTH)
-        self.arrow_button = Button(self.frame, text="Arrow", width=4, height=1, command=lambda: self.updateGUI(self.d))
 
-        self.arrow_button.place(x=0, y=0)
+        
+        self.textBox = Text(self.frame, width = 35, height = 11)
+        self.textBox.place(x=700,y=300)
 
-        self.close_button = Button(self.frame, text="Close", width=4, height=1, command=master.quit)
-        self.close_button.place(x=40, y=0)
+        self.enter_Button = Button(self.frame, text="Enter", width=4, height=1)
+        self.enter_Button.place(x=945, y=455)
+
+        self.close_Button = Button(self.frame, text="Close", width=4, height=1, command=master.quit)
+        self.close_Button.place(x=945, y=0)
 
     def updateGUI(self, d):
         x1 = 50 + self.counter * 200
-        y1 = 70
+        y1 = 175
         x2 = 200 + self.counter * 200
         set = list(d.keys())  # keyset = topics
 
@@ -64,6 +68,7 @@ class GUI:
                 self.canvas.create_text(x1 + 50, y1 + distance, text=set[i])
 
         self.counter += 1
+
 
 
 #root = Tk()
