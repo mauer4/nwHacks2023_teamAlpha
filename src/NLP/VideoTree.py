@@ -1,45 +1,54 @@
+# Create the root node
 class Node:
     def __init__(self, category, weight, leaves=[]):
         self.category = category
         self.weight = weight
         self.leaves = leaves
-        self.height = 0
 
-# Create the root node
+    def get_nth_level_children(self, n):
+        if n == 0:
+            return [self]
+        elif n == 1:
+            return self.leaves
+        else:
+            for leaf in self.leaves:
+                return leaf.get_nth_level_children(n-1)
+
 root = Node("Root Category", 0.5)
 
-# Create the first leaf node
-first_leaf = Node("First Leaf Category", 0.3)
-# Create the second leaf node
-second_leaf = Node("Second Leaf Category", 0.7)
-# Create the third leaf node
-third_leaf = Node("Third Leaf Category", 0.5)
-# Create the fourth leaf node
-fourth_leaf = Node("Forth Leaf Category", 0.5)
+root.leaves.append(Node("First Leaf Category", 0.3))
+root.leaves.append(Node("Second Leaf Category", 0.3))
+root.leaves.append(Node("Third Leaf Category", 0.3))
 
-# Add the leaf nodes to the root node
-root.leaves.append(first_leaf)
-root.leaves.append(second_leaf)
-root.leaves.append(third_leaf)
-root.leaves[0].leaves.append(fourth_leaf)
+root.leaves[0].leaves.append(Node("Fourth Leaf Category", 0.8))
 
-def addToTree(root, leaves):
-    root.height += 1
-    leaves = getLeaves(root, root.height)
-    
+print(root.leaves[1].leaves[3].category)
 
-def getLeaves(leaf, height):
-    if height == 0:
-            return [leaf]
-    elif height == 1:
-        return leaf.leaves
-    else:
-        for leaf in leaf.leaves:
-            return getLeaves(leaf, height-1)
+# # Create the first level of leaves
+# first_level_leaves = [
+#     Node("First Leaf Category", 0.3),
+#     Node("Second Leaf Category", 0.7),
+#     Node("Third Leaf Category", 0.5)
+# ]
 
-root.height += 2
-leaves = getLeaves(root, root.height)
-for leaf in leaves:
-    print(leaf.category)
 
-print(root.leaves[0].leaves)
+# # Create the second level of leaves
+# second_level_leaves = [
+#     Node("Fourth Leaf Category", 0.4),
+#     Node("Fifth Leaf Category", 0.8),
+#     Node("Sixth Leaf Category", 0.1)
+# ]
+
+# # Add the second level of leaves to the first level leaves
+# for leaf in first_level_leaves:
+#     leaf.leaves += second_level_leaves
+
+# # Add the first level of leaves to the root
+# root.leaves += first_level_leaves
+
+# # Print the second level leaves
+# for leaf in root.leaves:
+#     for second_level_leaf in leaf.leaves:
+#         print("here")
+#         print(second_level_leaf.category)
+#     print("")
