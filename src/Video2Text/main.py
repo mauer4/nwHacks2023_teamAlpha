@@ -1,8 +1,8 @@
 from tkinter import *
 import math
-import test
+import classify_text
 
-class GUI:
+class graphics:
 
     def __init__(self, master):
         self.master = master
@@ -16,9 +16,9 @@ class GUI:
         self.d = {"test1": 3, "test3": 0.3, "test2": 0.01}
 
         # https://stackoverflow.com/questions/7727804/tkinter-using-scrollbars-on-a-canvas
-        self.frame = Frame(test.root, width=5000, height=2500)
+        self.frame = Frame(master, width=5000, height=2500)
         self.frame.pack(expand=True, fill=BOTH)
-        self.canvas = Canvas(self.frame, bg='#00FFFF', width=5000, height=2500, scrollregion=(0, 0, 5000, 2500))
+        self.canvas = Canvas(self.frame, bg='#00FFFF', width=5000, height=2500, scrollregion=(0, 0, 50000, 2500))
         hbar = Scrollbar(self.frame, orient=HORIZONTAL)
         hbar.pack(side=BOTTOM, fill=X)
         hbar.config(command=self.canvas.xview)
@@ -30,11 +30,7 @@ class GUI:
         self.canvas.pack(side=LEFT, expand=True, fill=BOTH)
 
         
-        self.textBox = Text(self.frame, width = 35, height = 11)
-        self.textBox.place(x=700,y=300)
-
-        self.enter_Button = Button(self.frame, text="Enter", width=4, height=1)
-        self.enter_Button.place(x=945, y=455)
+    
 
         self.close_Button = Button(self.frame, text="Close", width=4, height=1, command=master.quit)
         self.close_Button.place(x=945, y=0)

@@ -1,10 +1,9 @@
 from google.cloud import language_v1
 import Video2Text
 from div_speech import *
-from GUI import main
 from tkinter import *
-from threading import Thread
-
+from main import *
+import Graph_Vis
 import sys
 import itertools
 
@@ -64,20 +63,30 @@ def combineWeights(main_topics: dict, section_topics: dict):
     return dict(itertools.islice(main_topics.items(), 5)) # returns top 5 topics
 
 def analyze_text(filename):
-    
     # start the thread in the background
     speech: str = readFile(filename)
     segments: list[str] = divide_speech(speech)
 
     topic_dict = {}
+    all_time_topics = []
     for segment in segments:
         seg_topics = accum_text(segment)
 
         # call GUI here feeding it seg_topics
-        print(seg_topics)
         topic_dict.update(seg_topics)
         topic_dict = {k: v for k, v in sorted(topic_dict.items(), key=lambda item: item[1], reverse=True)}
-    return dict(itertools.islice(topic_dict.items(), 5)) # returns top 5 topics
+        top_levels = {}
+        
+        for topic in topic_dict.keys():
+            top_level_category = getTop(topic)
+            if top_level_category not in top_levels.keys():
+                top_levels[top_level_category] = topic_dict[topic]
+            else:
+                top_levels[top_level_category] = top_levels[top_level_category]*0.5 + topic_dict[topic]
+        all_time_topics += [dict(itertools.islice(top_levels.items(), 5))] # top 5 topics
+
+    return all_time_topics
+
 
 def accum_text(text):
     global speech_txt
@@ -100,11 +109,19 @@ def main():
     args = sys.argv[1:]
     speech_txt = ""
 
+    root = Tk()
+    gui = graphics(root)
+
     # scrape video file name from cmd and convert to text
     speech_text_file = Video2Text.vid2text(args[0])
 
     # Analyze speech text file - return sliced dict (size == 5)
-    dict = analyze_text(speech_text_file)
+    list_of_dicts = analyze_text(speech_text_file)
+    print(list_of_dicts)
+    for d in list_of_dicts:
+        gui.updateGUI(d)
+        root.update()
+    mainloop()
 
 if __name__ == '__main__':
     main()
