@@ -18,7 +18,7 @@ class graphics:
         # https://stackoverflow.com/questions/7727804/tkinter-using-scrollbars-on-a-canvas
         self.frame = Frame(master, width=5000, height=2500)
         self.frame.pack(expand=True, fill=BOTH)
-        self.canvas = Canvas(self.frame, bg='#00FFFF', width=5000, height=2500, scrollregion=(0, 0, 50000, 2500))
+        self.canvas = Canvas(self.frame, bg='#89CFF0', width=5000, height=2500, scrollregion=(0, 0, 50000, 2500))
         hbar = Scrollbar(self.frame, orient=HORIZONTAL)
         hbar.pack(side=BOTTOM, fill=X)
         hbar.config(command=self.canvas.xview)
