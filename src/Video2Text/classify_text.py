@@ -1,5 +1,5 @@
 from google.cloud import language_v1
-from Video2Text import *
+import Video2Text
 
 import sys
 import itertools
@@ -78,14 +78,14 @@ def readFile(file_path: str) -> str:
         data = file.read().replace('\n', '')
     return data
 
-if __name__ == '__main__':
-    main()
-
 def main():
     args = sys.argv[1:]
 
     # scrape video file name from cmd and convert to text
-    speech_text_file = vid2text(args[0])
+    speech_text_file = Video2Text.vid2text(args[0])
 
     # Analyze speech text file - return sliced dict (size == 5)
     dict = analyze_text(speech_text_file)
+
+if __name__ == '__main__':
+    main()

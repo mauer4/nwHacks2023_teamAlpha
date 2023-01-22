@@ -24,3 +24,4 @@ def audio2text(filename):
     # Open the file in write mode
     with open("speech.txt", "w") as file:
         file.write(response_text)
+    return "speech.txt"
