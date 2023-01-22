@@ -1,4 +1,5 @@
 from google.cloud import language_v1
+from Audio2Text import *
 import itertools
 
 speech_txt = ""
@@ -56,23 +57,26 @@ def combineWeights(main_topics: dict, section_topics: dict):
 
     return dict(itertools.islice(main_topics.items(), 5))
 
-def main():
-    print("d1")
-    d1 = classify("Technology is a rapidly evolving field that encompasses a wide range of products, services, and processes. From smartphones and laptops to the internet and artificial intelligence, technology has had a profound impact on the way we live, work, and communicate. Advances in computing power, storage capacity, and networking have enabled new breakthroughs in areas such as big data, machine learning, and the Internet of Things.")
-    print("\nd2\n")
-    d2 = classify("In addition, technology has also played a key role in driving innovation and economic growth, creating new industries and jobs, and improving productivity and efficiency. However, with these benefits also come challenges, such as cybersecurity threats, privacy concerns, and the impact of technology on society and the workforce. Overall, technology will continue to be a driving force in shaping the future, and it is important for individuals and organizations to stay informed and adapt to the latest developments in order to stay competitive and take advantage of the many opportunities it offers.")
-    print("")
-    x = combineWeights(d1, d2)
-    print(x)
-main()
-
 def analyze_text(filename):
-    with open(filename, "rw") as speech:
-        
-    
+    speech = readFile(filename)
+    # TODO Iterate over speech
+    # Every > 20 words sentences call accum text
 
 def accum_text(text):
     speech_txt += " " + text
     d1 = classify(text)
     d2 = classify(speech_txt)
     x = combineWeights(d1, d2)
+
+def readFile(file_path: str) -> str:
+    """Read from file specified and return file contents as single line string"""
+
+    with open(file_path, 'r') as file:
+        data = file.read().replace('\n', '')
+    return data
+
+if __name__ == '__main__':
+    main()
+
+def main():
+    return 0
