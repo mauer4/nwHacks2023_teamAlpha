@@ -2,7 +2,7 @@ from google.cloud import language_v1
 import Video2Text
 from div_speech import *
 from tkinter import *
-from main import *
+from gui import *
 import Graph_Vis
 import sys
 import itertools
