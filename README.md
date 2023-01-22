@@ -19,3 +19,8 @@ gcloud-NLP (google)
 ## Data flow - input is path to .mp4:
 .mp4 -> .mp3 -> .txt -> Data Analysis -> GUI
 
+to run with all dependencies run:
+`python3 classify_text.py <filepath/filename.mp4>`
+
+obama.mp4 given in directory
+
