@@ -1,6 +1,8 @@
 from google.cloud import language_v1
 import itertools
 
+speech_txt = ""
+
 def classify(text: str, verbose=True) -> dict:
     """Classify the input text into categories."""
 
@@ -63,3 +65,14 @@ def main():
     x = combineWeights(d1, d2)
     print(x)
 main()
+
+def analyze_text(filename):
+    with open(filename, "rw") as speech:
+        
+    
+
+def accum_text(text):
+    speech_txt += " " + text
+    d1 = classify(text)
+    d2 = classify(speech_txt)
+    x = combineWeights(d1, d2)
