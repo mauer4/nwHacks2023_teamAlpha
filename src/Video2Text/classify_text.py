@@ -1,6 +1,9 @@
 from google.cloud import language_v1
 import Video2Text
 from div_speech import *
+from GUI import main
+from tkinter import *
+from threading import Thread
 
 import sys
 import itertools
@@ -49,38 +52,41 @@ def combineWeights(main_topics: dict, section_topics: dict):
         if topic in section_topics.keys():
             main_topics[topic] = main_topics[topic]*0.5 + section_topics[topic]*0.5
         else:
-            main_topics[topic] = main_topics[topic]*0.5
+            main_topics[topic] = main_topics[topic]*0.7
 
     for topic in section_topics.keys():
-        if topic not in main_topics:
-            main_topics[topic] = section_topics[topic]*0.5
+        if topic not in main_topics.keys():
+            main_topics[topic] = section_topics[topic]*0.7
 
     # sorts dict based on values
     main_topics = {k: v for k, v in sorted(main_topics.items(), key=lambda item: item[1], reverse=True)}
 
-    return dict(itertools.islice(main_topics.items(), 5))
+    return dict(itertools.islice(main_topics.items(), 5)) # returns top 5 topics
 
 def analyze_text(filename):
-    speech = readFile(filename)
-    segments = divide_speech(speech)
-    print(len(segments))
+    
+    # start the thread in the background
+    speech: str = readFile(filename)
+    segments: list[str] = divide_speech(speech)
+
+    topic_dict = {}
     for segment in segments:
-        topic_dict = accum_text(segment)
-        # Call GUI
+        seg_topics = accum_text(segment)
+
+        # call GUI here feeding it seg_topics
+        print(seg_topics)
+        topic_dict.update(seg_topics)
+        topic_dict = {k: v for k, v in sorted(topic_dict.items(), key=lambda item: item[1], reverse=True)}
+    return dict(itertools.islice(topic_dict.items(), 5)) # returns top 5 topics
 
 def accum_text(text):
     global speech_txt
+
     d1 = classify(text.strip(), False) if len(text.split(" ")) > 20 else classify(speech_txt.strip(), False)
     speech_txt = speech_txt + " " + text
 
-    #print("\nd1:", d1, "\n")
-    #print("\n", speech_txt.strip(), "\n")
-
     d2 = classify(speech_txt, False)
-    #print("\nd2:", d2, "\n")
-    x = combineWeights(d1, d2)
-    #print("x:", x)
-    return x
+    return combineWeights(d1, d2)
 
 def readFile(file_path: str) -> str:
     """Read from file specified and return file contents as single line string"""
@@ -93,12 +99,12 @@ def main():
     global speech_txt
     args = sys.argv[1:]
     speech_txt = ""
+
     # scrape video file name from cmd and convert to text
     speech_text_file = Video2Text.vid2text(args[0])
 
     # Analyze speech text file - return sliced dict (size == 5)
     dict = analyze_text(speech_text_file)
-    print(dict)
 
 if __name__ == '__main__':
     main()

@@ -3,8 +3,11 @@ import time
 import json
 import whisper
 
-API_URL = "https://api-inference.huggingface.co/models/openai/whisper-base"
-headers = {"Authorization": "Bearer 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"}
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
+
+#API_URL = "https://api-inference.huggingface.co/models/openai/whisper-base"
+#headers = {"Authorization": "Bearer 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"}
 
 # def audio2text(filename):
 #     with open(filename, "rb") as f:
