@@ -16,10 +16,14 @@ def thread():
         gui.updateGUI(i)
         root.update
         time.sleep(3)
-t = Thread(target=thread)
-t.start()
+
+
 # start the thread in the background
 mainloop()
+
+t = Thread(target=thread)
+t.start()
+
 
 
 
