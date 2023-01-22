@@ -1,5 +1,6 @@
 from google.cloud import language_v1
 import Video2Text
+from div_speech import *
 
 import sys
 import itertools
@@ -61,9 +62,11 @@ def combineWeights(main_topics: dict, section_topics: dict):
 
 def analyze_text(filename):
     speech = readFile(filename)
-    # TODO Iterate over speech
-    # Every > 20 words sentences call accum text
-    # and call to update GUI every time 
+    segments = divide_speech(speech.read())
+    for segment in segments:
+        topic_dict = accum_text(segment)
+        print(topic_dict)
+        # Call GUI
 
 def accum_text(text):
     speech_txt += " " + text
