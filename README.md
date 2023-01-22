@@ -24,3 +24,5 @@ to run with all dependencies run:
 
 obama.mp4 given in directory
 
+
+<img width="720" alt="image" src="https://user-images.githubusercontent.com/89616796/213937523-12fb6fe2-6a02-4143-ab42-ead703db2c5d.png">
